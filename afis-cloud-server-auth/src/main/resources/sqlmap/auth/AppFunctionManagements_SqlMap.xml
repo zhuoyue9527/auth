@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap
+	namespace="com.afis.cloud.auth.business.store.AppFunctionManagements">
+
+	<resultMap id="getApplicationsMap"
+		class="com.afis.cloud.auth.model.protocol.AdminApplicationResponse"
+		extends="T_A_APPLICATION.sacoolbuildergenerated_BaseResultMap">
+		<result column="OPERATE_APP_NAME" property="operateAppName"
+			jdbcType="VARCHAR2(60)" />
+		<result column="OPERATE_NAME" property="operateName"
+			jdbcType="VARCHAR2(60)" />
+		<result property="functionList" column="{appId=ID}"
+			select="com.afis.cloud.auth.business.store.AppFunctionManagements.queryApplicationsByAppId" />
+	</resultMap>
+
+
+	<!-- 用户授权列表分页查询 -->
+	<sql id="getApplications_where">
+		<isNotEmpty prepend=" AND " property="userName">T.user_name=#userName#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="operateAppId">T.operateAppId like
+			'%' || #appId# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status">T.STATUS=#status#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDay"><![CDATA[to_char(T.OPERATE_TIME,'yyyy-MM-dd') >= #startDay#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDay"><![CDATA[to_char(T.OPERATE_TIME,'yyyy-MM-dd') <= #endDay#]]>
+		</isNotEmpty>
+	</sql>
+
+	<select id="getApplications" resultMap="getApplicationsMap"
+		parameterClass="java.util.Map">
+		SELECT T.*, T1.APP_NAME AS OPERATE_APP_NAME, U.USER_NAME AS
+		OPERATE_NAME
+		FROM T_A_APPLICATION T, T_A_APPLICATION T1, T_A_USER U
+		WHERE T.OPERATOR = T1.ID
+		AND T.OPERATOR = U.ID
+		<include refid="getApplications_where" />
+		ORDER BY T.OPERATE_TIME ,T.ID DESC
+	</select>
+
+	<select id="getApplications_count"
+		resultClass="java.lang.Integer">
+		SELECT COUNT(T.ID)
+		FROM T_A_APPLICATION T, T_A_APPLICATION T1, T_A_USER
+		U
+		WHERE T.OPERATOR = T1.ID
+		AND T.OPERATOR = U.ID
+		<include refid="getApplications_where" />
+	</select>
+
+	<!-- 根据Id查询应用授权 -->
+	<select id="getApplicationById" resultMap="getApplicationsMap"
+		parameterClass="java.lang.Long">
+		SELECT T.*, T1.APP_NAME AS OPERATE_APP_NAME,
+		U.USER_NAME AS OPERATE_NAME
+		FROM T_A_APPLICATION T, T_A_APPLICATION T1,
+		T_A_USER U
+		WHERE T.ID = #value#
+		AND T.OPERATOR = T1.ID
+		AND T.OPERATOR =
+		U.ID
+		ORDER BY T.OPERATE_TIME ,T.ID DESC
+	</select>
+
+	<select id="queryApplicationsByAppId"
+		resultMap="T_AI_FUNCTION.sacoolbuildergenerated_BaseResultMap">
+		SELECT T.* FROM T_AI_FUNCTION T
+		LEFT JOIN T_A_APP_FUNCTION AP
+		ON T.ID=AP.FUNCTION_ID
+		LEFT JOIN T_A_APPLICATION A ON A.ID = AP.APP_ID
+		where AP.APP_ID=#appId#
+	</select>
+</sqlMap>
+
+

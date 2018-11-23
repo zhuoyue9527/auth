@@ -1,0 +1,76 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    min-width: 800px;
+    overflow-x: auto;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    float: left;
+}
+
+ul, li {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.afis a {
+    text-decoration: none;
+}
+
+.afis .pointer {
+    cursor: pointer;
+}
+
+.fluid {
+    width: 100%;
+    height: 100%;
+}
+
+.afis .red {
+    color: #fe4856;
+}
+
+.afis .bg-red {
+    background-color: #fe4856;
+    color: #ffffff;
+}
+
+.afis .left {
+    float: left;
+}
+
+.afis .right {
+    float: right;
+}
+
+.afis .mid {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img {
+    border-radius: 4px;
+}
+
+.afis-collapse [aria-expanded] .glyphicon::before {
+    content: "\e258";
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.afis-collapse [aria-expanded="true"] .glyphicon::before {
+    content: "\e259";
+}
+
+/*图标*/
+
+.afis .fa {
+    cursor: pointer;
+}

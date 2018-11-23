@@ -1,0 +1,94 @@
+.popup-list {
+    width: 100%;
+}
+
+.popup-list .popup-content {
+    width: 50%;
+    vertical-align: top;
+}
+
+.popup-list .selected-data {
+    border-left: 1px solid #cccccc;
+}
+
+.popup-list .list-group {
+    height: 415px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.popup-list .list-group>label input[type="checkbox"], .popup-list .list-group>label input[type="radio"] {
+    display: none;
+}
+
+.popup-list .list-group>label {
+    width: 100%;
+    margin-bottom: 0px;
+    font-weight: normal;
+}
+
+.popup-list .list-group-item {
+    border-radius: 0px;
+    border-style: none;
+}
+
+.popup-list .load-data .form-group {
+    margin: 6px 15px;
+    position: relative;
+}
+
+.popup-list .load-data .form-group input[type='text'] {
+    padding-right: 40px;
+}
+
+.popup-list .load-data .form-group .glyphicon.glyphicon-search {
+    font-weight: 800;
+    position: absolute;
+    right: 2px;
+    border-radius: 4px;
+    top: 2px;
+    line-height: 30px;
+    width: 40px;
+    text-align: center;
+    border-style: none;
+}
+
+.popup-list .load-data .form-group .glyphicon.glyphicon-search:hover {
+    background-color: #eee;
+}
+
+.popup-list .input-group.count, .popup-list .list-group {
+    padding: 6px 15px;
+}
+
+.popup-list .list-group>label input[type="checkbox"]:checked+span, .popup-list .list-group>label input[type="radio"]:checked+span {
+    color: #777;
+    background-color: #eee;
+}
+
+.popup-list .list-group .list-group-item span.badge {
+    display: none;
+    padding: 0px;
+    height: 20px;
+    line-height: 22px;
+    border-radius: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.popup-list .list-group .list-group-item:hover span.badge {
+    display: block;
+}
+
+.popup-list .list-group {
+    margin: 0px;
+}
+
+.popup-list nav {
+    float: right;
+    margin-right: 15px;
+}
+
+.popup-list nav .pagination {
+    margin: 0px;
+}

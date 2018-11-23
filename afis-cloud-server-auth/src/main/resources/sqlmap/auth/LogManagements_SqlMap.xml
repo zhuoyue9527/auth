@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="com.afis.cloud.auth.business.store.LogManagements">
+
+	<resultMap id="getLoginLogsMap" class="com.afis.cloud.auth.model.protocol.AdminLoginLogResponse"
+			   extends="T_A_LOGIN_LOG.sacoolbuildergenerated_BaseResultMap">
+		<result column="LOGIN_APP_NAME" property="loginAppName" jdbcType="VARCHAR2(60)" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR2(60)" />
+		<result column="USER_ACCOUNT" property="userAccount" jdbcType="VARCHAR2(20)" />
+	</resultMap>
+
+
+	<sql id="getLoginLogs_where">
+		<isNotEmpty prepend=" AND " property="userName">U.USER_NAME
+			like '%' || #userName# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userAccount">U.USER_ACCOUNT
+			like '%' || #userAccount# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="loginAppId">L.LOGIN_APP=#loginAppId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status">L.STATUS=#status#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="systemInfo">L.SYSTEM_INFO=#systemInfo#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="browserInfo">L.BROWSER_INFO=#browserInfo#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDay"><![CDATA[to_char(L.LOGIN_TIME,'yyyy-MM-dd') >= #startDay#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDay"><![CDATA[to_char(L.LOGIN_TIME,'yyyy-MM-dd') <= #endDay#]]>
+		</isNotEmpty>
+	</sql>
+	<!-- 登录日志查询 -->
+	<select id="getLoginLogs" resultMap="getLoginLogsMap"
+		parameterClass="java.util.Map">
+		SELECT L.*, A.APP_NAME AS LOGIN_APP_NAME, U.USER_NAME,U.USER_ACCOUNT
+		FROM T_A_LOGIN_LOG L
+		LEFT JOIN T_A_APPLICATION A ON L.LOGIN_APP = A.ID
+		LEFT JOIN T_A_USER U ON L.USER_ID = U.ID
+		WHERE 1 = 1
+		<include refid="getLoginLogs_where" />
+		ORDER BY L.LOGIN_TIME DESC
+	</select>
+	
+	<select id="getLoginLogs_count" resultClass="java.lang.Integer">
+		SELECT COUNT(L.ID)
+		FROM T_A_LOGIN_LOG L
+		LEFT JOIN T_A_APPLICATION A ON L.LOGIN_APP = A.ID
+		LEFT JOIN T_A_USER U ON L.USER_ID = U.ID
+		WHERE 1 = 1
+		<include refid="getLoginLogs_where" />
+	</select>
+
+
+
+	<sql id="getOperateLogs_where">
+		<isNotEmpty prepend=" AND " property="functionName">F.NAME
+			like '%' || #functionName# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status">O.STATUS=#status#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="operateAppId">O.OPERATE_APP_ID=#operateAppId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="operator">U.USER_NAME
+			like
+			'%' || #operator# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDay"><![CDATA[to_char(O.OPERATE_TIME,'yyyy-MM-dd') >= #startDay#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDay"><![CDATA[to_char(O.OPERATE_TIME,'yyyy-MM-dd') <= #endDay#]]>
+		</isNotEmpty>
+	</sql>
+	<!-- 操作日志列表-->
+	<resultMap id="getOperateLogsMap" class="com.afis.cloud.auth.model.protocol.AdminOperateLogResponse"
+			   extends="T_A_OPERATE_LOG.sacoolbuildergenerated_BaseResultMap">
+		<result column="OPERATE_APP_NAME" property="operateAppName" jdbcType="VARCHAR2(60)" />
+		<result column="FUNCTION_NAME" property="functionName" jdbcType="VARCHAR2(60)" />
+		<result column="OPERATE_NAME" property="operateName" jdbcType="VARCHAR2(60)" />
+	</resultMap>
+
+	<select id="getOperateLogs" resultMap="getOperateLogsMap"
+			parameterClass="java.util.Map">
+		SELECT O.*, A.APP_NAME AS OPERATE_APP_NAME, U.USER_NAME AS OPERATE_NAME,F.NAME AS FUNCTION_NAME
+		  FROM T_A_OPERATE_LOG O
+		  LEFT JOIN T_AI_FUNCTION F ON O.FUNCTION_ID = F.ID
+		  LEFT JOIN T_A_APPLICATION A ON O.OPERATE_APP_ID = A.ID
+		  LEFT JOIN T_A_USER U ON O.OPERATOR = U.ID
+		  WHERE 1 = 1
+		<include refid="getOperateLogs_where" />
+		ORDER BY O.OPERATE_TIME DESC
+	</select>
+
+	<select id="getOperateLogs_count" resultClass="java.lang.Integer">
+		SELECT COUNT(O.ID)
+		FROM T_A_OPERATE_LOG O
+		LEFT JOIN T_AI_FUNCTION F ON O.FUNCTION_ID = F.ID
+		LEFT JOIN T_A_APPLICATION A ON O.OPERATE_APP_ID = A.ID
+		LEFT JOIN T_A_USER U ON O.OPERATOR = U.ID
+		WHERE 1 = 1
+		<include refid="getOperateLogs_where" />
+	</select>
+
+	<!--操作系统列表-->
+	<select id="getSystemInfos" resultClass="java.lang.String">
+		SELECT DISTINCT L.SYSTEM_INFO FROM T_A_LOGIN_LOG L WHERE L.SYSTEM_INFO IS NOT NULL
+	</select>
+	<!--浏览器列表-->
+	<select id="getBrowsers" resultClass="java.lang.String">
+		SELECT DISTINCT L.BROWSER_INFO FROM T_A_LOGIN_LOG L WHERE L.BROWSER_INFO IS NOT NULL
+	</select>
+
+</sqlMap>
+
+

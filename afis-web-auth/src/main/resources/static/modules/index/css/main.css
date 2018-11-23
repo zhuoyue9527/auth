@@ -1,0 +1,301 @@
+.popover-content .empty {
+    white-space: nowrap;
+}
+
+.afis-index-main {
+    position: absolute;
+    z-index: 998;
+    background-color: #ffffff;
+}
+
+.afis-index {
+    top: 50px;
+    right: 0px;
+    left: 200px;
+    position: fixed;
+    bottom: 0px;
+    z-index: 990;
+    overflow: auto;
+}
+
+.afis .afis-menubar {
+    position: fixed;
+    top: 50px;
+    left: 0px;
+    bottom: 0px;
+    width: 200px;
+    background-color: #174481;
+    overflow: hidden;
+    padding-bottom: 50px;
+    z-index: 998;
+}
+
+/**/
+
+.afis .afis-tabs {
+    min-width: 800px;
+}
+
+.afis .afis-tabs .tab-content, .afis .afis-tabs .tab-pane {
+    float: left;
+    width: 100%;
+}
+
+/*table-sort*/
+
+div.table-cols-set nav {
+    border-radius: 0px;
+}
+
+div.table-cols-set nav li {
+    margin-top: 1px;
+    margin-right: 1px;
+    background-color: #174481;
+}
+
+div.table-cols-set ul.nav>li>a>span {
+    display: block;
+    float: left;
+}
+
+div.table-cols-set ul.nav>li>i {
+    cursor: pointer;
+}
+
+div.table-cols-set ul.nav>li>a {
+    height: 30px;
+    padding: 5px 24px 5px 5px;
+}
+
+div.table-cols-set ul.nav>li.invisible {
+    visibility: hidden;
+}
+
+div.table-cols-set ul.nav>li.col-hidden>a:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .1);
+    border: 1px dashed #aaa;
+}
+
+div.table-cols-set ul.nav>li>a:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+div.table-cols-set {
+    overflow: hidden;
+}
+
+div.table-cols-set ul.nav>li>a {
+    text-decoration: none;
+    outline: 0;
+}
+
+div.table-cols-set ul.nav>li>a>span {
+    cursor: move;
+}
+
+div.table-cols-set ul.nav>li>a {
+    color: #ffffff;
+}
+
+div.table-cols-set ul.nav>li.col-hidden>a {
+    color: #9d9d9d;
+}
+
+div.table-cols-set ul.nav>li>i {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    color: #ffffff;
+    z-index: 9999;
+}
+
+div.table-cols-set ul.nav>li.col-hidden>i.glyphicon::before {
+    content: "\e106";
+    color: #9d9d9d;
+}
+
+div.table-cols-set ul.nav>li>i.glyphicon::before {
+    content: "\e105";
+}
+
+div.table-cols-set .table-cols-edit ul.nav {
+    width: 100%;
+    position: relative;
+}
+
+/*弹框*/
+
+.afis-popover .popover-content {
+    padding: 2px;
+}
+
+.popover-img>img {
+    width: 100%;
+    height: 100%;
+}
+
+.modal-body .panel-body {
+    overflow-x: auto;
+}
+
+.modal-body>div {
+    width: 702px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal-body .content-main .content.check-content {
+    background-color: transparent;
+}
+
+.modal-body .content-main .content {
+    background-color: #ddd;
+    border-radius: 4px;
+}
+
+.modal-body .content-main .content>span {
+    line-height: 30px;
+    padding-left: 12px;
+    padding-right: 12px;
+    word-break: normal;
+    display: block;
+    word-wrap: break-word;
+}
+
+.modal-body .content-main .content>span[name="remark"] {
+    display: block;
+    line-height: 16px;
+    padding-top: 8px;
+}
+
+td[td-name='logoPath']>img {
+    height: 50px;
+    width: 50px;
+}
+
+/*tab*/
+
+.afis [data-toggle="tab"] {
+    cursor: pointer;
+}
+
+.afis .nav-tabs {
+    background-color: #e7eaef;
+    border-bottom-color: transparent;
+}
+
+.afis .nav-tabs>li>a {
+    color: #555;
+    /* background-color: #f7f8fa; */
+    border-radius: 2px 2px 0 0;
+    padding: 5px 15px;
+    margin-top: 5px;
+    border-color: transparent;
+}
+
+.afis .nav-tabs>li.active>a, .afis .nav-tabs>li.active>a:focus, .afis .nav-tabs>li.active>a:hover {
+    background-color: #ffffff;
+    border-color: transparent;
+}
+
+.afis .nav-tabs>li>a .glyphicon {
+    top: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+/*表格*/
+
+table.table td {
+    font-size: 12px;
+}
+
+.tab-pane .watable td>label {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.tab-pane .watable td>label>.fa {
+    margin: 0 3px;
+}
+
+.modal-body>div.table-cols-set {
+    width: 100%;
+}
+
+table.table thead>tr>th, table.table tbody>tr>td {
+    border-style: none;
+    white-space: nowrap;
+}
+
+table.table tbody>tr>td[td-name="remark"] {
+    min-width: 150px;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.tab-pane .watable>thead {
+    background-color: #f7f8fa;
+}
+
+.tab-pane .watable>thead>tr {
+    border-bottom: 2px solid #e9e9e9;
+}
+
+.tab-pane .watable tr {
+    border-bottom: 1px dashed #e9e9e9;
+}
+
+/*按钮设置*/
+
+.condition-form {
+    margin-top: 15px;
+}
+
+.afis .condition-btn {
+    margin-bottom: 8px;
+    text-align: right;
+}
+
+.afis .condition-btn .afis-btn {
+    margin-left: 8px;
+}
+
+.table-up-div {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    min-height: 42px;
+    background-color: #e7eaef;
+}
+
+.table-up-div>button {
+    background-color: transparent;
+    /* filter: alpha(opacity=95);
+    opacity: .95; */
+}
+
+button.btn.fa::before {
+    color: #174481;
+    margin-right: 5px;
+}
+
+button.btn {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.afis-btn {
+    padding: 5px 30px;
+}
+
+.afis-btn.btn-cancel, .afis-btn.btn-reset {
+    background-color: #dddddf;
+}

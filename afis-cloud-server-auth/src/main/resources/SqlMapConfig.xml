@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <settings
+            cacheModelsEnabled="true"
+            enhancementEnabled="true"
+            lazyLoadingEnabled="true"
+            errorTracingEnabled="true"
+            useStatementNamespaces="true"
+            maxRequests="2048"
+            maxTransactions="512"
+            maxSessions="1024"
+    />
+    <transactionManager type="JDBC">
+        <dataSource type="DBCP">
+            <property name="JDBC.Driver" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.41)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=DG1)))" />
+			<property name="JDBC.Username" value="ua_dev"/>
+			<property name="JDBC.Password" value="ua_dev"/>
+
+            <property name="Pool.RemoveAbandonedTimeout" value="50000"/>
+            <property name="Pool.RemoveAbandoned" value="true"/>
+            <property name="Pool.MaximumWait" value="30000"/>
+            <property name="Pool.ValidationQuery" value="select 1 from dual"/>
+            <property name="Pool.LogAbandoned" value="true"/>
+        </dataSource>
+    </transactionManager>
+    <quoteSqlMap resource="Auth_Entities_Autogenerate_SqlMap.xml"/>
+    <quoteSqlMap resource="Auth_Business_SqlMap.xml"/>
+</sqlMapConfig>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ibatorConfiguration PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN" 
+"../ibator-config_1_0.dtd">
+<ibatorConfiguration >
+	<classPathEntry location="../ojdbc5-11.1.0.6.0.jar"/> 
+
+  <ibatorContext id="OrcleTables" targetRuntime="Ibatis2Java5">
+  
+  	<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+        connectionURL="jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.41)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=DG1)))"
+        userId="ua_dev"
+        password="ua_dev">
+        <!-- 是否返回数据库注释，MySQL默认是true，oracle默认是false -->  
+        <property name="remarksReporting" value="false"/>  
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="com.afis.cloud.entities.model.auth" targetProject=".">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="false" />
+      <property name="addSetProperty" value="true" /> <!-- 选择性增改 -->
+      <property name="addSqlSnippetProperty" value="true" /><!-- SQL片段支持 -->
+      <property name="pageResultPackage" value="com.afis.cloud.db"/><!-- 翻页结果类包路径 -->
+      <property name="pageResultName" value="PageResult"/><!-- 翻页结果类名称 -->
+      <property name="modelVisibility" value="public"/><!-- model类的可见类型 -->
+      <property name="modelBlobsVisibility" value="public"/><!-- 大数据字段model类的可见类型 -->
+      <property name="exampleVisibility" value="public"/><!-- Example类的可见类型 -->
+      <property name="keyVisibility" value="public"/><!-- KeyModel的可见类型 -->
+      <property name="selectiveVisibility" value="public"/><!-- Selective类的可见类型 -->
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="sqlmap.autogenerate.auth"  targetProject=".">
+      <property name="enableSubPackages" value="true" />
+      <property name="sqlTagTypeUpper" value="true" /><!-- sql是否格式化为全大写  -->
+    </sqlMapGenerator>
+
+	<!--  IBATIS -->
+	<!--  SPRING -->
+	<!--  GENERIC-CI -->
+	<!--  GENERIC-SI -->
+	<daoGenerator type="GENERIC-CI" targetPackage="com.afis.cloud.entities.dao.auth" implementationPackage="com.afis.cloud.entities.dao.impl.auth" targetProject=".">
+    <!--<daoGenerator type="GENERIC-CI" targetPackage="com.dao" targetProject="Mina_Test">-->
+      <property name="enableSubPackages" value="true" />
+      <property name="turnPagePackage" value="com.afis.cloud.db"/>
+      <property name="turnPageName" value="TurnPage"/>
+      <property name="rowHandler" value="true"/><!-- 是否可开启游标 -->
+      <property name="daoVisibility" value="public"/>
+      <property name="implVisibility" value="public"/>
+      <property name="daoFactoryEnable" value="false"/>
+      <property name="factoryVisibility" value="true"/>
+    </daoGenerator>
+    
+    <!-- 1.4.	T_AI_FUNCTION 功能表 
+	<table tableName="T_AI_FUNCTION" domainObjectName="Function">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<generatedKey column="ID" sqlStatement="SELECT SEQ_T_AI_FUNCTION.NEXTVAL FROM DUAL" identity="false"/>
+		<columnOverride column="ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="URL" jdbcType="VARCHAR2(60)" javaType="String"/>
+		<columnOverride column="NAME" jdbcType="VARCHAR2(60)" javaType="String"/>
+		<columnOverride column="TYPE" jdbcType="CHAR(1)" javaType="String"/>	
+		<columnOverride column="REMARK" jdbcType="VARCHAR2(200)" javaType="String"/>
+		<columnOverride column="ORDER_NO" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="GROUP_NAME" jdbcType="VARCHAR2(60)" javaType="String"/>
+	</table>
+	-->
+
+	<!-- 1.8.	T_AI_MENU 管理菜单信息 
+	<table tableName="T_AI_MENU" domainObjectName="Menu">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<generatedKey column="ID" sqlStatement="SELECT SEQ_T_AI_MENU.NEXTVAL FROM DUAL" identity="false"/>			
+		<columnOverride column="ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="NAME" jdbcType="VARCHAR2(60)" javaType="String"/>
+		<columnOverride column="ICON_PATH" jdbcType="VARCHAR2(30)" javaType="String"/>
+		<columnOverride column="PARENT_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="ORDERED" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="MENU_PATH" jdbcType="VARCHAR2(30)" javaType="String"/>
+		<columnOverride column="REMARK" jdbcType="VARCHAR2(200)" javaType="String"/>
+	</table> 
+	-->
+	<!-- 1.1.	T_A_APPLICATION 应用信息下 
+	<table tableName="T_A_APPLICATION" domainObjectName="Application">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<generatedKey column="ID" sqlStatement="SELECT SEQ_T_A_APPLICATION.NEXTVAL FROM DUAL" identity="false"/>
+		<columnOverride column="ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="APP_CODE" jdbcType="VARCHAR2(32)" javaType="String"/>
+		<columnOverride column="APP_NAME" jdbcType="VARCHAR2(60)" javaType="String"/>
+		<columnOverride column="KEY" jdbcType="VARCHAR2(32)" javaType="String"/>		
+		<columnOverride column="URL_CALLBACK" jdbcType="VARCHAR2(60)" javaType="String"/>
+		<columnOverride column="LOGO_PATH" jdbcType="VARCHAR2(30)" javaType="String"/>
+		<columnOverride column="STATUS" jdbcType="CHAR(1)" javaType="String"/>
+		<columnOverride column="REMARK" jdbcType="VARCHAR2(200)" javaType="String"/>
+		<columnOverride column="OPERATE_APP_ID" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="OPERATOR" jdbcType="NUMBER" javaType="Long"/>		
+		<columnOverride column="OPERATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</table>
+	-->
+	<!-- 1.5.	T_A_APP_FUNCTION 应用功能表 
+	<table tableName="T_A_APP_FUNCTION" domainObjectName="AppFunction">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<generatedKey column="ID" sqlStatement="SELECT SEQ_T_A_APP_FUNCTION.NEXTVAL FROM DUAL" identity="false"/>
+		<columnOverride column="ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="APP_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="FUNCTION_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="OPERATE_APP_ID" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="OPERATOR" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="OPERATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</table>
+	-->
+	
+	<!-- 1.3.	T_A_APP_USER应用授权用户
+	<table tableName="T_A_APP_USER" domainObjectName="AppUser">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<generatedKey column="ID" sqlStatement="SELECT SEQ_T_A_APP_USER.NEXTVAL FROM DUAL" identity="false"/>
+		<columnOverride column="ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="APP_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="USER_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="APP_PASSWORD" jdbcType="VARCHAR2(20)" javaType="String"/>
+		<columnOverride column="WARRANT_PERMIT" jdbcType="CHAR(1)" javaType="String"/>
+		<columnOverride column="WARRANT" jdbcType="CHAR(1)" javaType="String"/>
+		<columnOverride column="OPERATE_APP_ID" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="OPERATOR" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="OPERATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</table>	
+	 -->
+	<!-- 1.6.	T_A_LOGIN_LOG 登入日志 
+	<table tableName="T_A_LOGIN_LOG" domainObjectName="LoginLog">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<generatedKey column="ID" sqlStatement="SELECT SEQ_T_A_LOGIN_LOG.NEXTVAL FROM DUAL" identity="false"/>
+		<columnOverride column="ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="USER_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="LOGIN_APP" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="LOGIN_IP" jdbcType="VARCHAR2(20)" javaType="String"/>
+		<columnOverride column="STATUS" jdbcType="CHAR(1)" javaType="String"/>
+		<columnOverride column="SYSTEM_INFO" jdbcType="VARCHAR2(100)" javaType="String"/>
+		<columnOverride column="BROWSER_INFO" jdbcType="VARCHAR2(100)" javaType="String"/>
+		<columnOverride column="REMARK" jdbcType="VARCHAR2(200)" javaType="String"/>
+		<columnOverride column="LOGIN_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</table>
+	-->
+	<!-- 1.7.	T_A_OPERATE_LOG 操作日志 
+   <table tableName="T_A_OPERATE_LOG" domainObjectName="OperateLog">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<generatedKey column="ID" sqlStatement="SELECT SEQ_T_A_OPERATE_LOG.NEXTVAL FROM DUAL" identity="false"/>
+		<columnOverride column="ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="FUNCTION_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="LOGIN_IP" jdbcType="VARCHAR2(20)" javaType="String"/>
+		<columnOverride column="STATUS" jdbcType="CHAR(1)" javaType="String"/>
+		<columnOverride column="REMARK" jdbcType="VARCHAR2(200)" javaType="String"/>		
+		<columnOverride column="OPERATE_APP_ID" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="OPERATOR" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="OPERATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>		
+	</table>
+	-->
+	<!-- 1.9.	T_A_TABLE_CONFIG 系统配置表 
+	<table tableName="T_A_TABLE_CONFIG" domainObjectName="TableConfig">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<generatedKey column="ID" sqlStatement="SELECT SEQ_T_A_TABLE_CONFIG.NEXTVAL FROM DUAL" identity="false"/>
+		<columnOverride column="ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="APP_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="OBJ_ID" jdbcType="VARCHAR2(50)" javaType="String"/>
+		<columnOverride column="OPERATOR" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="COLUMNS" jdbcType="VARCHAR2(2000)" javaType="String"/>
+	</table>
+	-->
+	<!-- 1.2.	T_A_USER 用户信息 
+	<table tableName="T_A_USER" domainObjectName="User">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<generatedKey column="ID" sqlStatement="SELECT SEQ_T_A_USER.NEXTVAL FROM DUAL" identity="false"/>
+		<columnOverride column="ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="USER_ACCOUNT" jdbcType="VARCHAR2(20)" javaType="String"/>
+		<columnOverride column="USER_NAME" jdbcType="VARCHAR2(60)" javaType="String"/>
+		<columnOverride column="PASSWORD" jdbcType="VARCHAR2(20)" javaType="String"/>
+		<columnOverride column="MOBILE" jdbcType="VARCHAR2(20)" javaType="String"/>
+		<columnOverride column="CLIENT_TYPE" jdbcType="CHAR(1)" javaType="String"/>
+		<columnOverride column="STATUS" jdbcType="CHAR(1)" javaType="String"/>
+		<columnOverride column="REMARK" jdbcType="VARCHAR2(200)" javaType="String"/>
+		<columnOverride column="REGISTER_APP_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="REGISTER_OPERATOR" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="REGISTER_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<columnOverride column="OPERATE_APP_ID" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="OPERATOR" jdbcType="NUMBER" javaType="Long"/>
+		<columnOverride column="OPERATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<columnOverride column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<columnOverride column="LAST_LOGIN_IP" jdbcType="VARCHAR2(20)" javaType="String"/>
+	</table>
+	-->
+	<!-- 1.10.	T_A_ONLINE_USER在线用户 -->
+	<table tableName="T_A_ONLINE_USER" domainObjectName="OnlineUser">
+		<property name="alias" value="true" />
+		<property name="clone" value="false" />
+		<property name="copyConstructor" value="false" />
+		<property name="copy" value="true" />
+		<columnOverride column="LOGIN_KEY" jdbcType="VARCHAR2(32)" javaType="String"/>
+		<columnOverride column="USER_ID" jdbcType="NUMBER" javaType="long"/>
+		<columnOverride column="LOGIN_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</table>
+  </ibatorContext>
+</ibatorConfiguration>

@@ -1,0 +1,209 @@
+.table_container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.table_container .table-body {
+    height: 470px;
+    overflow: auto;
+}
+
+.table_mask {
+    background: black;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    z-index: 100;
+    opacity: 0.5;
+}
+
+.table_mask p {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    margin: auto;
+    position: relative;
+    width: 200px;
+    margin-top: 100px;
+}
+
+.watable {
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.watable>thead .tsort:after {
+    display: inline-block;
+    vertical-align: top;
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    content: ' ';
+    background: 50% 50% no-repeat;
+}
+
+.watable>tbody>tr>td {
+    height: 28px;
+}
+
+.watable>tbody>tr:hover {
+    cursor: pointer;
+}
+
+.watable tr.selected>td {
+    background-color: #d9edf7;
+}
+
+/**/
+
+.table_footer {
+    margin-top: 10px;
+    height: 32px;
+}
+
+.table_footer .page-tool-bar a {
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+    background: #f4f7f9;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    color: #999;
+    display: inline-block;
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+.table_footer .page-tool-bar a:hover, .table_footer .page-tool-bar a.cur {
+    background: #fa2932;
+    color: #fff;
+}
+
+.table_footer .page-tool-bar .columnpicker {
+    margin-left: 10px;
+}
+
+.table_footer .page-tool-bar .columnpicker .dropdown-menu {
+    padding-left: 10px;
+}
+
+.table_footer .page-step {
+    margin-right: 10px;
+}
+
+.table_footer .page-step .step li {
+    display: inline;
+    list-style: none;
+    text-align: left;
+}
+
+.table_footer .page-step .step a {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    background: #f4f7f9;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.table_footer .page-step .step a.cur {
+    background: #fa2932;
+    color: #fff;
+}
+
+.table_footer .page-step .step .form-control {
+    width: 60px;
+    height: 26px;
+    display: inline-block;
+}
+
+.table_footer .page-step .step .btn {
+    padding: 5px 10px;
+    border-color: #C79597;
+    color: #fff;
+    background-color: #fa2932;
+}
+
+.watable .colspilter {
+    position: absolute;
+    height: 100%;
+    width: 10px;
+    top: 0px;
+    cursor: col-resize;
+    right: 0px;
+}
+
+.watable span.filter {
+    background-color: #999;
+}
+
+.watable .columnpicker li, .watable .actions li {
+    padding-left: 5px;
+}
+
+.watable .btn-toolbar {
+    margin-bottom: -5px;
+}
+
+.watable .pagination {
+    margin: 0;
+}
+
+.watable input[type=text].filter {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    width: 80px;
+    float: left;
+    background-color: transparent;
+}
+
+.watable .date-wrap {
+    width: 100%;
+    min-width: 115px;
+}
+
+.watable .dateWrap .add-on {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    float: right;
+    cursor: pointer;
+}
+
+.watable .dropdown-menu {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.watable .actions a {
+    padding: 0;
+    margin: 0;
+}
+
+.table_footer .dropdown-menu ul {
+    padding-left: 0px;
+    margin-bottom: 0px;
+}
+
+.table_footer .dropdown-menu ul>li label, .table_footer .dropdown-menu ul>li label>input {
+    cursor: pointer;
+}
+
+.table_footer .dropdown-menu ul>li label {
+    font-weight: normal;
+}

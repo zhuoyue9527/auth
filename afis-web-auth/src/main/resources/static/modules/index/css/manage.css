@@ -1,0 +1,109 @@
+[data-name="restrict-manage"] .modal-body, [data-name="app-manage"] .modal-body {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+[data-name="restrict-manage"] .modal-body .user-select {
+    width: 100%;
+    min-height: 39px;
+}
+
+.panel-body table.table thead>tr>th {
+    white-space: nowrap;
+}
+
+[data-name="app-manage"] .modal-content, [data-name="restrict-manage"] .modal-content {
+    width: 100%;
+}
+
+[data-name="app-manage"] .content-main .suffix, [data-name="restrict-manage"] .content-main .suffix {
+    min-width: 28px;
+}
+
+[data-name="app-manage"] .suffix i.fa.fa-refresh {
+    margin: 2px;
+    cursor: pointer;
+}
+
+[data-name="app-manage"] .modal-body>div.app-manage, [data-name="restrict-manage"] .modal-body>div.app-manage {
+    width: 100%;
+    padding-left: 345px;
+}
+
+.app-info, .func-info {
+    position: relative;
+    float: left;
+}
+
+.app-info {
+    margin-left: -100%;
+    left: -345px;
+    width: 345px;
+}
+
+.func-info {
+    width: 100%;
+}
+
+.app-logo {
+    padding-left: 85px;
+    width: 310px;
+    height: 120px;
+}
+
+.app-logo>div {
+    height: 102px;
+    width: 102px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.app-logo>div>img {
+    width: 100%;
+    height: 100%;
+}
+
+.func-info .panel-title {
+    float: none;
+}
+
+.func-info .func-mask {
+    width: 100%;
+}
+
+.func-info .func-mask .func-content {
+    width: 100%;
+}
+
+[data-name="app-manage"] .func-info .func-mask .func-content {
+    max-height: 600px;
+    padding-right: 15px;
+    overflow: auto;
+}
+
+[data-name="restrict-manage"] .func-info .func-mask .func-content {
+    padding-right: 25px;
+    overflow-y: hidden;
+}
+
+[data-name="restrict-manage"] .modal-body .panel-body {
+    max-height: 650px;
+    overflow: auto;
+}
+
+[data-name="restrict-manage"] .panel-title [aria-expanded] {
+    position: relative;
+    top: -1px;
+    margin-left: 10px;
+}
+
+[data-name="app-manage-function-list"] .modal-content, [data-name="app-manage-function-list"] .modal-body>div {
+    width: 100%;
+}
+
+[data-name="app-manage-function-list"] .func-info {
+    max-height: 600px;
+    overflow: auto;
+}

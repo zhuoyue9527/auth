@@ -1,0 +1,83 @@
+.afis-navbar-content ul.user-info .popover-content .bell-content {
+    width: 180px;
+    max-height: 290px;
+    overflow: hidden;
+}
+
+.afis-navbar-content ul.user-info .popover-content .bell-content ul {
+    width: 200px;
+    max-height: 290px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.afis-navbar-content ul.user-info .popover-content .bell-content ul li {
+    width: 100%;
+    display: block;
+    float: left;
+    margin: 0px;
+}
+
+.afis-navbar-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    margin: 0px;
+    border-style: none;
+    background-color: #f7f8f9;
+}
+
+.afis-navbar-content>.logo {
+    height: 30px;
+    margin: 10px;
+    float: left;
+}
+
+.afis-navbar-content>.title {
+    font-size: 16px;
+    line-height: 50px;
+}
+
+.afis-navbar-content ul.user-info {
+    margin-right: 35px;
+}
+
+.afis-navbar-content ul.user-info li {
+    display: block;
+    float: left;
+    color: #94989a;
+    font-size: 14px;
+    margin: 15px 10px;
+}
+
+.afis-navbar-content ul.user-info li .red {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.afis-navbar-content ul.user-info li.bell {
+    position: relative;
+    margin-right: 10px;
+}
+
+.afis-navbar-content ul.user-info li.bell .badge {
+    position: absolute;
+    border-radius: 4px;
+    background-color: #fe4856;
+    color: #ffffff;
+    top: -11px;
+    left: 1px;
+    width: 35px;
+    text-align: center;
+}
+
+.afis-navbar-content ul.user-info li .fa+span {
+    margin-left: 5px;
+}
+
+.afis-navbar-content ul.user-info li button.fa {
+    background-color: transparent;
+    border-style: none;
+    outline: none;
+}

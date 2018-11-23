@@ -1,0 +1,95 @@
+ul.node-container, ul.node-container li, ul.node-container a[data-toggle="collapse"] {
+    display: block;
+    float: left;
+    width: 200px;
+}
+
+ul.node-container {
+    height: 100%;
+    width: 220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+ul.node-container ul {
+    float: left;
+    width: 100%;
+}
+
+ul.node-container li .node-content {
+    float: left;
+}
+
+ul.node-container li .node-show {
+    float: left;
+}
+
+ul.node-container .node-show .prefix, ul.node-container .node-show .content, ul.node-container .node-show .suffix {
+    display: block;
+    float: left;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+ul.node-container .node-show .content {
+    cursor: pointer;
+}
+
+/*字号**/
+
+ul.node-container>li>.node-show .content {
+    font-size: 14px;
+}
+
+ul.node-container>li>ul>li>.node-show .content {
+    font-size: 12px;
+}
+
+ul.node-container .node-show .content {
+    font-size: 8px;
+}
+
+ul.node-container .node-show .content {
+    text-align: center;
+    width: 150px;
+    padding-left: 5px;
+    padding-right: 20px;
+}
+
+/*width:200px;*/
+
+ul.node-container .node-show {
+    padding-left: 15px;
+}
+
+ul.node-container a[aria-expanded="true"] .suffix .glyphicon::before {
+    content: "\e259";
+}
+
+/*颜色设置**/
+
+ul.node-container {
+    background-color: #174481;
+    color: #ffffff;
+}
+
+ul.node-container>li>ul {
+    background-color: #244f88;
+}
+
+ul.node-container>li>ul>li>ul {
+    background-color: #2f6082;
+}
+
+ul.node-container a {
+    color: #ffffff;
+}
+
+ul.node-container li:last-child {
+    border-bottom-style: none;
+}
+
+ul.node-container li.active, ul.node-container li a:hover, ul.node-container li.leaf:hover {
+    background-color: #fe4856;
+    color: #ffffff;
+}

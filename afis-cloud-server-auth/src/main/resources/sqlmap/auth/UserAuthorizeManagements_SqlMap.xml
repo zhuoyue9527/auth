@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap
+	namespace="com.afis.cloud.auth.business.store.UserAuthorizeManagements">
+	<select id="getAppUserByUserId"
+		resultMap="T_A_APPLICATION.sacoolbuildergenerated_BaseResultMap"
+		parameterClass="java.lang.Long">
+		SELECT T.* FROM T_A_APPLICATION T
+		LEFT JOIN T_A_APP_USER
+		A ON A.APP_ID = T.ID
+		WHERE A.USER_ID=#value#
+	</select>
+
+	<resultMap
+		class="com.afis.cloud.auth.model.protocol.open.response.AppUserResponse"
+		id="appUserResponse">
+		<result property="userId" column="USER_ID"/>
+		<result property="userAccount" column="USER_ACCOUNT"/>
+		<result property="warrantPermit" column="WARRANT_PERMIT"/>
+		<result property="warrant" column="WARRANT"/>
+		</resultMap>
+		
+	<select id="getAppUserByUserIdAndAppCode"
+		resultMap="T_A_APP_USER.sacoolbuildergenerated_BaseResultMap"
+		parameterClass="java.util.Map">
+		SELECT T.USER_ID,T.WARRANT_PERMIT,T.WARRANT,U.USER_ACCOUNT 
+		FROM T_A_APP_USER T, T_A_USER U,T_A_APPLICATION A
+		WHERE T.APP_ID = A.ID
+		AND T.USER_ID = U.ID
+		AND A.APP_CODE = #appCode#
+		AND T.USER_ID = #userId#
+	</select>
+</sqlMap>

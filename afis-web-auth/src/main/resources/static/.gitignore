@@ -1,0 +1,8 @@
+/node_modules
+/api_data.js
+/area_data.js
+/gulpfile.js
+/package.json
+/package-lock.json
+/server.js
+/.vscode

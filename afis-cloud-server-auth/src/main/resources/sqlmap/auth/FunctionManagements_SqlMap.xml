@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap
+	namespace="com.afis.cloud.auth.business.store.FunctionManagements">
+
+	<!-- 功能列表分页查询 -->
+	<sql id="getFunctions_where">
+		<isNotEmpty prepend=" AND " property="type">T.TYPE=#type#
+		</isNotEmpty>
+	</sql>
+
+	<select id="getFunctions"
+		resultMap="T_AI_FUNCTION.sacoolbuildergenerated_BaseResultMap"
+		parameterClass="java.util.Map">
+		SELECT T.* FROM T_AI_FUNCTION T
+		WHERE 1 = 1
+		<include refid="getFunctions_where" />
+		ORDER BY T.ORDER_NO ASC
+	</select>
+
+	<select id="getFunctions_count" resultClass="java.lang.Integer">
+		SELECT COUNT(T.ID)
+		FROM T_AI_FUNCTION T
+		WHERE 1 = 1
+		<include refid="getFunctions_where" />
+	</select>
+
+	<!--功能分组查询-->
+	<resultMap id="getFunctionsByGroupsMap"
+			   class="com.afis.cloud.auth.model.FunctionListModel">
+		<result column="GROUP_NAME" property="groupName"
+				jdbcType="VARCHAR2(60)" />
+		<result property="functionList" column="{groupName=GROUP_NAME}"
+				select="com.afis.cloud.auth.business.store.FunctionManagements.queryApplicationsByGroupName" />
+	</resultMap>
+	<select id="getFunctionsByGroups"
+			resultMap="getFunctionsByGroupsMap"
+			parameterClass="java.util.Map">
+		SELECT distinct T.GROUP_NAME FROM T_AI_FUNCTION T WHERE T.TYPE=2
+	</select>
+
+	<resultMap id="queryApplicationsByGroupNameMap"
+			   class="com.afis.cloud.auth.model.FunctionModel">
+		<result column="ID" property="id"
+				jdbcType="NUMBER" />
+		<result column="URL" property="url"
+				jdbcType="VARCHAR2(60)" />
+		<result column="NAME" property="name"
+				jdbcType="VARCHAR2(60)" />
+		<result column="TYPE" property="type"
+				jdbcType="CHAR(1)" />
+		<result column="REMARK" property="remark"
+				jdbcType="VARCHAR2(60)" />
+		<result column="ORDER_NO" property="orderNo"
+				jdbcType="NUMBER" />
+	</resultMap>
+	<select id="queryApplicationsByGroupName"
+			resultMap="queryApplicationsByGroupNameMap">
+		SELECT T.* FROM T_AI_FUNCTION T
+		WHERE T.TYPE=2 AND T.GROUP_NAME=#groupName#
+	</select>
+
+
+
+	<!--根据appId功能分组查询-->
+	<resultMap id="getFunctionsByAppIdMap"
+			   class="com.afis.cloud.auth.model.FunctionListModel">
+		<result column="GROUP_NAME" property="groupName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="APP_ID" property="appId"
+				jdbcType="NUMBER" />
+		<result property="functionList" column="{groupName=GROUP_NAME,appId=APP_ID}"
+				select="com.afis.cloud.auth.business.store.FunctionManagements.queryApplicationsByAppId" />
+	</resultMap>
+	<select id="getFunctionsByAppId"
+			resultMap="getFunctionsByAppIdMap"
+			parameterClass="java.lang.Long">
+		SELECT distinct T.GROUP_NAME ,#appId# as APP_ID
+		  FROM T_AI_FUNCTION T
+		 WHERE T.ID IN
+			   (SELECT AF.FUNCTION_ID FROM T_A_APP_FUNCTION AF WHERE AF.APP_ID = #appId#)
+	</select>
+
+	<resultMap id="queryApplicationsByAppIdMap"
+			   class="com.afis.cloud.auth.model.FunctionModel">
+		<result column="ID" property="id"
+				jdbcType="NUMBER" />
+		<result column="URL" property="url"
+				jdbcType="VARCHAR2(60)" />
+		<result column="NAME" property="name"
+				jdbcType="VARCHAR2(60)" />
+		<result column="TYPE" property="type"
+				jdbcType="CHAR(1)" />
+		<result column="REMARK" property="remark"
+				jdbcType="VARCHAR2(60)" />
+		<result column="ORDER_NO" property="orderNo"
+				jdbcType="NUMBER" />
+		<result column="GROUP_NAME" property="groupName"
+				jdbcType="VARCHAR2(60)" />
+	</resultMap>
+	<select id="queryApplicationsByAppId"
+			resultMap="queryApplicationsByAppIdMap">
+		SELECT T.*
+        FROM T_AI_FUNCTION T
+        WHERE T.GROUP_NAME = #groupName#
+        AND T.ID IN
+       (SELECT AF.FUNCTION_ID FROM T_A_APP_FUNCTION AF WHERE AF.APP_ID = #appId#)
+	</select>
+
+</sqlMap>

@@ -1,0 +1,106 @@
+/*符号*start*/
+
+.afis .icon {
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    float: left;
+}
+
+.afis .icon input {
+    display: none;
+}
+
+.afis .icon .show-v {
+    display: block;
+    border: 1px solid #666666;
+}
+
+.afis .icon.square .show-v {
+    border-radius: 2px;
+}
+
+.afis .icon.circular .show-v {
+    border-radius: 7px;
+}
+
+.afis .icon .show-v {
+    position: relative;
+    height: 14px;
+    width: 14px;
+}
+
+.afis .icon input[type='checkbox']+.show-v {
+    border: 1px solid #ff3344;
+}
+
+.afis .icon input[type='checkbox']:checked+.show-v {
+    background-color: #ff3344;
+    border: 1px solid #ff3344;
+}
+
+.afis .icon.cross input[type='checkbox']:checked+.show-v {
+    background-color: #70d445;
+    border: 1px solid #70d445;
+}
+
+.afis .icon.cross input[type='checkbox']+.show-v {
+    background-color: #ff5500;
+    border: 1px solid #ff5500;
+}
+
+.afis .icon.cross input[type='checkbox']+.show-v::after {
+    position: absolute;
+    content: ' ';
+    border: 1px solid #ffffff;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    height: 4px;
+    width: 8px;
+    top: 3px;
+    left: 1px;
+    -webkit-transform: rotate(-45deg) scale(1);
+    -ms-transform: rotate(-45deg) scale(1);
+    transform: rotate(-45deg) scale(1);
+    opacity: 1;
+}
+
+.afis .icon.cross input[type='checkbox']:checked+.show-v::before {
+    display: none;
+}
+
+.afis .icon.cross input[type='checkbox']+.show-v::before {
+    position: absolute;
+    content: ' ';
+    border: 1px solid #ffffff;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    height: 4px;
+    width: 8px;
+    top: 3px;
+    left: 3px;
+    -webkit-transform: rotate(45deg) scale(1);
+    -ms-transform: rotate(45deg) scale(1);
+    transform: rotate(45deg) scale(1);
+    opacity: 1;
+}
+
+.afis .icon.cross input[type='checkbox']:checked+.show-v::after, .afis .icon input[type='checkbox']+.show-v::after {
+    position: absolute;
+    content: ' ';
+    border: 1px solid #ffffff;
+    border-top: 0px;
+    border-right: 0px;
+    height: 4px;
+    width: 8px;
+    top: 3px;
+    left: 2px;
+    -webkit-transform: rotate(-45deg) scale(1);
+    -ms-transform: rotate(-45deg) scale(1);
+    transform: rotate(-45deg) scale(1);
+    opacity: 1;
+}
+
+/*符号*end*/

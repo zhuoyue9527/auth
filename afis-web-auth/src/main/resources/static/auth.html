@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/images/favicon.ico" rel="bookmark" type="image/x-icon">
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="/js/afis.libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/js/afis.libs//toastr/toastr.min.css">
+    <link rel="stylesheet" href="/js/afis.libs/jquery-confirm/jquery-confirm.min.css">
+    <link rel="stylesheet" href="/css/afis.css">
+    <link rel="stylesheet" href="/js/afis.common/popup/css/afis.popup.css">
+    <script src="/js/afis.libs/jquery-3.2.1.min.js"></script>
+    <script src="/js/afis.libs/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/afis.libs/toastr/toastr.min.js"></script>
+    <script src="/js/afis.libs/jquery-confirm/jquery-confirm.min.js"></script>
+    <script src="/js/afis.common/popup/afis.popup.js"></script>
+    <script src="/modules/index/js/afis.mq.js"></script>
+    <title>统一认证中心,登录界面</title>
+    <style type="text/css">
+        .gradient-blue {
+            outline: none;
+            background-image: -webkit-linear-gradient(left, #03366a, #1cc0ef);
+            background-image: linear-gradient(left, #03366a, #1cc0ef);
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+        body>div.afis {
+            width: 100%;
+            padding-bottom: 50px;
+        }
+
+        .header {
+            width: 100%;
+        }
+
+        .header>.logo {
+            padding: 42px 0px 28px 0px;
+        }
+
+        .header>.logo>img {
+            height: 70px;
+        }
+
+        .header>.logo,
+        .auth-info {
+            width: 1200px;
+        }
+
+        .auth-info {
+            display: table;
+            min-height: 450px;
+        }
+
+        .auth,
+        .unauth {
+            display: table-cell;
+            vertical-align: top;
+        }
+
+        .auth {
+            width: 680px;
+        }
+
+        .unauth {
+            border-left: 1px dashed #d1d1d1;
+        }
+
+        .auth a.back-login {
+            width: 100%;
+            text-align: right;
+            padding-right: 25px;
+            padding-top: 75px;
+            color: #999999;
+            font-size: 12px;
+        }
+
+        .auth-info li img:hover {
+            box-shadow: 0 0 6px #498ac0;
+            -webkit-box-shadow: 0 0 6px #498ac0;
+        }
+
+        /*授权*/
+        .auth-info .tip {
+            width: 100%;
+            display: inline-block;
+        }
+
+        .auth .tip h3 {
+            float: left;
+            width: 100%;
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 10px;
+        }
+
+        .auth .tip h3+span {
+            padding-top: 15px;
+            padding-bottom: 36px;
+            display: block;
+            float: left;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .auth-list {
+            width: 506px;
+        }
+
+        .auth-list li {
+            display: inline-block;
+        }
+
+        .auth-list li>.info {
+            cursor: pointer;
+            margin: 8px;
+            width: 110px;
+            display: inline-block;
+        }
+
+        .auth-list li>.info img {
+            width: 100%;
+            max-height: 110px;
+            margin-bottom: 10px;
+            border-radius: 2px;
+        }
+
+        .auth-list li>.info .auth-name {
+            width: 100%;
+            display: block;
+            text-align: center;
+            font-size: 14px;
+            color: #747474;
+        }
+
+        /*未授权*/
+        .unauth .tip {
+            padding-left: 75px;
+        }
+
+        .unauth .tip h4 {
+            width: 100%;
+            text-align: left;
+            margin-top: 65px;
+            margin-bottom: 12px;
+        }
+
+        .unauth-list {
+            width: 355px;
+            color: #666666;
+            min-height: 450px;
+        }
+
+        .unauth ul li>img {
+            height: 45px;
+            width: 45px;
+            margin: 10px 0px 10px 20px;
+        }
+
+        .unauth ul li .unauth-name {
+            margin-left: 15px;
+        }
+
+        .unauth ul li {
+            overflow: hidden;
+            position: relative;
+            height: 65px;
+            line-height: 65px;
+            border-bottom: 1px dashed #f2f2f2;
+        }
+
+        .unauth ul li:last-child {
+            border-bottom-color: transparent;
+        }
+
+        .unauth ul li .go-auth {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            height: 100%;
+            width: 100px;
+            background-color: #ffffff;
+        }
+
+        .unauth ul li input[type='button'] {
+            margin-top: 20px;
+            margin-right: 15px;
+            height: 25px;
+            float: right;
+            border: 1px solid #d1d1d1;
+            background-color: transparent;
+            font-size: 12px;
+            padding: 0px 15px;
+            border-radius: 2px;
+        }
+
+        .unauth ul li input[type='button']:hover,
+        .unauth ul li input[type='button']:focus {
+            color: #17a8d6;
+            border-color: #17a8d6;
+            border-radius: 2px;
+        }
+
+        /* .auth-info li img {
+            display: none;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="afis">
+        <div class="header gradient-blue">
+            <div class="logo mid">
+                <img src="/images/logo-w.png" alt="">
+            </div>
+        </div>
+        <div class="auth-info mid" data-code="${appCode}" data-url="${redirectUrl}">
+            <div class="auth">
+                <div class="tip">
+                    <h3>快速授权登录</h3>
+                    <span>点击头像安全登录</span>
+                </div>
+                <div class="auth-list mid">
+                    <ul <#if authorizeList?size lte 3>text-center</#if> >
+                        <#list authorizeList as auth>
+                            <li data-key="${auth.loginKey}" data-name="${auth.userName}">
+                                <div class="info">
+									<#if (auth.icon)??>
+                                        <img src="${auth.icon}" title="${auth.userName}" alt="${auth.userName}">
+                                    <#else>
+                                        <img src="/images/default.png" title="${auth.userName}" alt="${auth.userName}">
+                                    </#if>
+                                    <span class="auth-name" title="${auth.userName}">${auth.userName}</span>
+                                </div>
+                            </li>
+                        </#list>
+                    </ul>
+                </div>
+                <a class="back-login right" href="/auth/loginPage?appCode=${appCode}&redirectUrl=${redirectUrl}">返回账号密码登录</a>
+            </div>
+            <div class="unauth">
+                <div class="tip">
+                    <h4>未授权账号有：</h4>
+                </div>
+                <div class="unauth-list mid">
+                    <ul>
+                        <#list unAuthorizeList as unauth>
+                            <li>
+                                <#if (unauth.icon)??>
+                                    <img class="img-circle" src="${unauth.icon}" title="${unauth.userName}" alt="${unauth.userName}">
+                                <#else>
+                                	<img class="img-circle" src="/images/default.png" title="${unauth.userName}" alt="${unauth.userName}">
+                                </#if>
+                                <span class="unauth-name" title="${unauth.userName}">${unauth.userName}</span>
+                                <div class="go-auth">
+                                    <input type="button" class="btn" value="去授权" data-key="${unauth.loginKey}"
+                                        data-name="${unauth.userName}">
+                                </div>
+                            </li>
+                        </#list>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        [text-center] {
+            text-align: center;
+        }
+
+        @media (min-width:800px) and (max-width:1200px) {
+
+            .header>.logo,
+            .auth-info {
+                width: 800px;
+            }
+
+            .auth {
+                width: 400px;
+            }
+
+            .auth-list {
+                width: 380px;
+            }
+
+            .unauth-list {
+                width: 300px;
+            }
+        }
+    </style>
+    <div class="afis modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header gradient-blue">
+                    <h4 class="modal-title">授权账号</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <img class="icon" src="/images/user_icon.png" alt="">
+                                </div>
+                                <input type="text" class="form-control" autocomplete="off" disabled="disabled" name="user"
+                                    placeholder="请输入用户名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <img class="icon" src="/images/pwd_icon.png" alt="">
+                                </div>
+                                <input type="password" class="form-control" autocomplete="off" name="pwd" placeholder="请输入密码">
+                            </div>
+                        </div>
+                        <button name="ok" type="button" class="btn">授权</button>
+                        <button name="cancel" type="button" data-dismiss="modal" aria-label="Close" class="btn right">取消</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var data = $(".auth-info.mid").data(),
+        code = data.code,
+        url = data.url;
+    var AFIS = window.afis,
+        tip = new AFIS.popup(),
+        afismq = AFIS.afismq;
+
+    //-授权---
+    $(".auth-list ul").on("click", "li", function () {
+        var data = $(this).data();
+        var params = {
+            loginKey: data.key,
+            appCode: code,
+            redirectUrl: url
+        };
+        afismq.patch("/auth/authorize", params, function (data) {
+            if (data) {
+                location.href = data;
+            }
+        }, function (msg, code, desc) {
+            tip.warning(desc + "[" + code + "]");
+        });
+    });
+    //-未授权---
+    $(".unauth-list ul").on("click", "li input[type='button']", function () {
+        var data = $(this).data();
+        if (data) {
+            showPop($(".modal"), data);
+        }
+    });
+    // var test = function () {
+    //     var auth = [];
+    //     var unauth = [];
+    //     var time = new Date().getTime();
+    //     code = time;
+    //     url = "url" + time;
+    //     for (let index = 0; index < 2; index++) {
+    //         var dic = {
+    //             userName: "userName" + index,
+    //             path: "/images/default.png",
+    //             loginKey: index + "loginKey" + time
+    //         };
+    //         auth.push(dic);
+    //         unauth.push(dic);
+    //     }
+    //     addAuthList(auth, $(".auth-list ul"));
+    //     addUnAuthList(unauth, $(".unauth-list ul"));
+    // }
+    // test();
+
+    //-已授权---
+    function addAuthList(list, content) {
+        content.children().remove();
+        if (Object.prototype.toString.call(list) == '[object Array]' && list.length > 0) {
+            $.each(list, function (i, item) {
+                addAuth(item, "loginKey", "userName", "path", content);
+            });
+        }
+    }
+    function addAuth(data, key, nameKey, srcKey, content) {
+        var loginKey = data[key];
+        var name = data[nameKey];
+        var li = $('<li></li>').appendTo(content).attr("data-key", loginKey).attr("data-name", name);
+        var a = $('<a class="info" href="javascript:void(0)"></a>').appendTo(li);
+        var src = data[srcKey];
+        if (src) {
+            $('<img src="' + src + '" title="' + name + '" alt="' + name + '">').appendTo(a);
+        }
+        $('<span class="auth-name" title="' + name + '">' + name + '</span>').appendTo(a);
+    }
+    //-未授权---
+    function addUnAuthList(list, content) {
+        content.children().remove();
+        if (Object.prototype.toString.call(list) == '[object Array]') {
+            $.each(list, function (i, item) {
+                addUnAuth(item, "loginKey", "userName", "path", content);
+            });
+        }
+    }
+    function addUnAuth(data, key, nameKey, srcKey, content) {
+        var loginKey = data[key];
+        var name = data[nameKey];
+        var li = $('<li></li>').appendTo(content);
+
+        var src = data[srcKey];
+        if (src) {
+            $('<img class="img-circle" src="' + src + '" title="' + name + '" alt="' + name + '">').appendTo(li);
+        }
+        $('<span class="unauth-name" title="' + name + '">' + name + '</span>').appendTo(li);
+        $('<div class="go-auth"><input type="button" class="btn" value="去授权"></div>').appendTo(li).find("[type='button']").attr("data-key", loginKey).attr("data-name", name);;
+    }
+    function showPop(content, data) {
+        var h = $("body").outerHeight();
+        var top = (h - 288) / 2 - 50;
+        if (h >= 350) {
+            if (top <= 0) {
+                top = top + 50;
+            }
+            $(".afis .modal-dialog").css("margin-top", top + "px");
+        }
+        content.find("input").val("");
+        content.find("input[name='user']").val(data.name);
+        var modal = $(content).modal({
+            backdrop: 'static'
+        }).data("bs.modal");
+        if (modal) {
+            modal.show();
+        }
+        $(content).on("shown.bs.modal", function () {
+            $(this).find("img[name='captcha']").off("click").on("click", function (e) {
+                $(this).attr("src", "/captcha.png?time=" + new Date().getTime());
+            });
+            $(this).find("button[name='ok']").off("click").on("click", function (e) {
+                var loginKey = data.key;
+                var cont = $(this).parents(".modal-body");
+                var params = {
+                    loginKey: loginKey,
+                    appCode: code,
+                    password: $.trim(cont.find("input[name='pwd']").val())
+                };
+                afismq.patch("/auth/authorize/user", params, function (data) {
+                	tip.success("用户授权成功，请重新登录",function(){
+                		modal.hide();
+                	})
+                }, function (msg, code, desc) {
+                    tip.warning(desc + "[" + code + "]");
+                });
+            });
+            $(this).find("button[name='cancel']").on("click", function (e) {
+                modal.hide();
+            });
+        })
+    }
+</script>
+<style type="text/css">
+    /*弹框*/
+    .afis .icon {
+        margin: 0px;
+        padding: 0px;
+        display: block;
+        float: left;
+    }
+
+    .form-horizontal>button[name] {
+        padding-left: 50px;
+        padding-right: 50px;
+        height: 32px;
+        outline: none;
+        border-radius: 2px;
+    }
+
+    .form-horizontal>button[name='ok'] {
+        background-color: #fa2932;
+        color: #ffffff;
+    }
+
+    .form-horizontal>button[name='cancel'] {
+        background-color: #cccccc;
+        color: #666666;
+    }
+
+    .modal-header.gradient-blue {
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+    }
+
+    .modal-dialog {
+        width: 408px;
+    }
+
+    .modal-header.gradient-blue {
+        color: #ffffff;
+        padding-left: 20px;
+        padding-top: 12px;
+        padding-bottom: 14px;
+    }
+
+    .modal-header.gradient-blue .modal-title {
+        font-size: 14px;
+    }
+
+    .modal .input-group-addon {
+        background-color: #eeeeee;
+        padding: 0px;
+    }
+
+    .afis .modal-body {
+        padding: 15px 53px 45px 53px;
+    }
+
+    .modal-body .form-horizontal .form-group:first-child {
+        margin-top: 30px;
+    }
+
+    .modal-body .form-horizontal .form-group:last-child {
+        margin-bottom: 35px;
+    }
+
+    .modal-body .form-horizontal .form-group {
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    .modal .input-group-addon>img.icon {
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+    }
+
+    .modal .input-group-addon,
+    .modal-body input.form-control {
+        border-color: #eeeeee;
+    }
+
+    .modal-body img[name="captcha"] {
+        height: 100%;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+    }
+
+    .afis input.form-control {
+        box-shadow: inset 0 0px 0px;
+        -webkit-box-shadow: inset 0px 0px;
+    }
+</style>
+
+</html>

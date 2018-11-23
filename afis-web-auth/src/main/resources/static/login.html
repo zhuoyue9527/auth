@@ -1,0 +1,607 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>${appName},登录界面</title>
+    <link href="/images/favicon.ico" rel="bookmark" type="image/x-icon">
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="/js/afis.libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/afis.css">
+    <link rel="stylesheet" href="/js/afis.common/form/css/afis.form.css">
+    <link rel="stylesheet" href="/modules/index/css/icon.css">
+    <link rel="stylesheet" href="/js/afis.libs/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/js/afis.libs/jquery-confirm/jquery-confirm.min.css">
+    <link rel="stylesheet" href="/js/afis.common/popup/css/afis.popup.css">
+    <script src="/js/afis.libs/jquery-3.2.1.min.js"></script>
+    <script src="/js/afis.libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/modules/index/js/afis.mq.js"></script>
+    <script src="/js/afis.libs/jquery-confirm/jquery-confirm.min.js"></script>
+    <script src="/js/afis.libs/toastr/toastr.min.js"></script>
+    <script src="/js/afis.common/popup/afis.popup.js"></script>
+    <style type="text/css">
+        body {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        body>.afis {
+            height: 100%;
+            position: relative;
+            top: 0;
+            left: 0;
+            padding-top: 140px;
+        }
+
+        .afis .mid {
+            width: 1200px;
+        }
+
+        .afis .nav {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-bottom: 1px solid #dbdbdb;
+            color: #7a7a7a;
+            background-color: #f5f5f5;
+        }
+
+        .afis .nav>div {
+            line-height: 40px;
+            min-height: 40px;
+        }
+
+        .afis .sys-title {
+            min-height: 100px;
+            position: absolute;
+            top: 40px;
+            width: 100%;
+            background-color: #ffff;
+        }
+
+        .afis .sys-title img.logo,
+        .afis .sys-title h2,
+        .afis .sys-title h4 {
+            float: left;
+        }
+
+        .afis .sys-title img.logo {
+            width: 92px;
+            height: 70px;
+            margin: 15px 15px 15px 0px;
+        }
+
+        .afis .sys-title h2 {
+            margin-top: 33px;
+            color: #174481;
+        }
+
+        .afis .sys-title h4 {
+            margin-left: 15px;
+            margin-top: 37px;
+            padding-top: 5px;
+            padding-left: 10px;
+            height: 26px;
+            color: #666666;
+            border-left: 1px solid #dddddd;
+        }
+
+        .afis .login {
+            min-height: 100%;
+            background-color: #ffffff;
+            background-image: url('/images/login-bg.jpg');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .afis .login .login-content {
+            height: 100%;
+        }
+
+        .afis .login-content .login-content-main {
+            padding-top: 60px;
+            width: 780px;
+        }
+
+        .afis .login-content .login-content-main>form {
+            border-radius: 9px;
+            height: 480px;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 10px rgba(255, 172, 36, .45);
+            -webkit-box-shadow: 0px 4px 10px rgba(255, 172, 36, .45);
+        }
+
+        .afis .login-content .login-content-main>form .afis-form,
+        .afis .login-content .login-content-main>form .submit-content {
+            padding-right: 220px;
+            padding-left: 160px;
+        }
+
+        .login-title-content {
+            height: 70px;
+            line-height: 70px;
+            width: 100%;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #d9d9d9;
+        }
+
+        .login-title-content>span {
+            font-size: 18px;
+            font-weight: 500;
+            margin-left: 25px;
+            padding-left: 15px;
+            border-left: 4px solid #ff3344;
+        }
+
+        .afis .login-content .login-content-main>span {
+            width: 100%;
+            display: block;
+            color: #ffffff;
+            margin-top: 50px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .afis .login-content .bg-2 {
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, .15) inset;
+            -webkit-box-shadow: 0px 6px 10px rgba(0, 0, 0, .15) inset;
+        }
+
+        .content-item.content-main {
+            position: relative;
+        }
+
+        .content-item.content-main .suffix>.icon {
+            min-width: 30px;
+            position: absolute;
+            top: 9px;
+            left: -23px;
+            z-index: 998;
+        }
+
+        .content-item .suffix.code {
+            width: 134px;
+        }
+
+        .content-item .suffix.code img {
+            position: relative;
+            height: 34px;
+            width: 118px;
+            margin-left: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .content-item .suffix.code i {
+            font-size: 18px;
+            font-weight: 600;
+            margin-left: 10px;
+            padding-left: 0px;
+            top: 5px;
+            color: #999999;
+            cursor: pointer;
+        }
+
+        .afis .form-control {
+            height: 36px;
+        }
+
+        .afis .icon input[type='checkbox']+.show-v {
+            border: 2px solid #ff3344;
+        }
+
+        .success.form-control:focus {
+            border-color: #70d445;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(112, 212, 69, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(112, 212, 69, .6);
+        }
+
+        .error.form-control:focus {
+            border-color: #ff3344;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 51, 68, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 51, 68, .6);
+        }
+
+        .content-item.info,
+        .content-item.error {
+            padding: 4px 0px 5px 15px;
+            min-height: 28px;
+        }
+
+        .content-item.error {
+            color: #ff8a80;
+            display: none;
+        }
+
+        .content-item.info {
+            color: #70d445;
+        }
+
+        label[name='remember'].icon {
+            display: inline;
+            cursor: pointer;
+        }
+
+        label[name='remember']>div {
+            position: relative;
+            float: left;
+            top: 3px;
+            margin-right: 10px;
+        }
+
+        .submit-content {
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .submit-main {
+            width: 320px;
+        }
+
+        .submit-main>input[type='button'] {
+            height: 40px;
+            margin-top: 12px;
+            color: #ffffff;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            background-image: -webkit-linear-gradient(top, #ff897f, #ff4a59);
+            background-image: linear-gradient(top, #ff897f, #ff4a59);
+        }
+
+        .afis .afis-form {
+            width: 100%;
+        }
+
+        .afis .afis-form .form-part {
+            width: auto;
+        }
+
+        .afis .afis-form .form-part.title {
+            width: 75px;
+        }
+
+        .afis .afis-form .content {
+            width: 320px;
+        }
+
+        .afis .content-main .suffix {
+            position: relative;
+            min-width: auto;
+        }
+
+        .afis .icon {
+            display: none;
+        }
+
+        .afis .suffix .icon {
+            cursor: pointer;
+        }
+
+        @media (min-width: 600px) and (max-width: 1200px) {
+            .afis .mid {
+                width: 800px;
+            }
+        }
+
+        @media(max-height:720px) {
+            .afis .login-content .login-content-main {
+                width: 480px;
+                padding-top: 40px;
+            }
+
+            .submit-main {
+                margin-right: 50px;
+            }
+
+            .submit-content {
+                margin-top: 10px;
+            }
+
+            .login-title-content {
+                height: 50px;
+                line-height: 50px;
+                margin-bottom: 20px;
+            }
+
+            .afis .login-content .login-content-main>form {
+                height: 400px;
+            }
+
+            .afis .login-content .login-content-main>form .afis-form,
+            .afis .login-content .login-content-main>form .submit-content {
+                padding-right: 10px;
+                padding-left: 25px;
+            }
+
+            .afis .sys-title img.logo {
+                width: auto;
+                height: 50px;
+                margin: 2px 15px 2px 0px;
+            }
+
+            .afis .sys-title h4,
+            .afis .sys-title h2 {
+                margin-top: 20px;
+            }
+
+            .afis .sys-title h2 {
+                font-size: 24px;
+            }
+
+            .afis .sys-title {
+                min-height: 55px;
+            }
+
+            body>.afis {
+                padding-top: 95px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="afis">
+        <div role="navigation" class="nav">
+            <div class="mid">
+                <div class="left">
+                    <span>欢迎来到</span>
+                    <span class="red">统一认证系统</span>
+                    <span>!</span>
+                </div>
+                <div class="right">
+                    <span></span>
+                    <span class="red"></span>
+                </div>
+            </div>
+        </div>
+        <div class="sys-title">
+            <div class="mid">
+                <img class="logo" src="${appLogoPath?default('/images/logo.png')}">
+                <h2>${appName}</h2>
+                <h4>欢迎登录</h4>
+            </div>
+        </div>
+        <div class="login">
+            <div class="login-content">
+                <div class="mid login-content-main">
+                    <form class="form-horizontal">
+                        <div class="login-title-content left">
+                            <span>用户登录</span>
+                        </div>
+                        <div class="form-content left">
+                            <div class="afis-form">
+                                <div class="form-part title"><label class="control-label">用户名:</label></div>
+                                <div class="form-part content-wapper">
+                                    <div class="content-item content-main">
+                                        <div class="prefix"></div>
+                                        <div class="content"><input type="text" name="userName" autocomplete="off"
+                                                class="form-control"></div>
+                                        <div class="suffix">
+                                            <div class="icon cross circular"><input type="checkbox" checked="checked"><span
+                                                    class="show-v"></span></div>
+                                        </div>
+                                    </div>
+                                    <div class="content-item info"></div>
+                                    <div class="content-item error"></div>
+                                </div>
+                                <div class="form-part extend"></div>
+                            </div>
+                            <div class="afis-form">
+                                <div class="form-part title"><label class="control-label">密码:</label></div>
+                                <div class="form-part content-wapper">
+                                    <div class="content-item content-main">
+                                        <div class="prefix"></div>
+                                        <div class="content"><input type="password" name="pwd" autocomplete="off" class="form-control"></div>
+                                        <div class="suffix">
+                                            <div class="icon cross circular"><input type="checkbox" checked="checked"><span
+                                                    class="show-v"></span></div>
+                                        </div>
+                                    </div>
+                                    <div class="content-item info"></div>
+                                    <div class="content-item error"></div>
+                                </div>
+                                <div class="form-part extend"></div>
+                            </div>
+                            <div class="afis-form">
+                                <div class="form-part title"><label class="control-label">验证码:</label></div>
+                                <div class="form-part content-wapper">
+                                    <div class="content-item content-main">
+                                        <div class="prefix"></div>
+                                        <div class="content" style="width: 185px;"><input type="text" name="code"
+                                                autocomplete="off" class="form-control"></div>
+                                        <div class="suffix code">
+                                            <div class="icon cross circular"><input type="checkbox" checked="checked"><span
+                                                    class="show-v"></span></div>
+                                            <img src="/captcha.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="content-item info"></div>
+                                    <div class="content-item error"></div>
+                                </div>
+                                <div class="form-part extend"></div>
+                            </div>
+                        </div>
+                        <div class="submit-content left">
+                            <div class="submit-main right">
+                                <label name="remember" style="display:none;" class="icon square">
+                                    <div>
+                                        <input type="checkbox" checked="checked">
+                                        <span class="show-v"></span>
+                                    </div>
+                                    <span class="show-t">记住用户名</span>
+                                </label>
+                                <input data-appCode="${appCode}" data-redirectUrl="${redirectUrl}" type="button" class="btn"
+                                    name="submit" value="登录">
+                            </div>
+                        </div>
+                    </form>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var AFIS = window.afis,
+        afismq = AFIS.afismq,
+        tip = AFIS.popup;
+
+    var content = $(".afis .form-content");
+    content.on("blur", "input.form-control", function (e) {
+        validate.call(this);
+    });
+    content.on("keyup", "input.form-control", function (e) {
+        validate.call(this);
+    });
+    content.on("click", ".suffix .icon .show-v", function (e) {
+        var check = $(this).siblings("input[type='checkbox']"),
+            input = $(this).parents(".suffix").siblings(".content").find("input.form-control"),
+            name = input.attr("name");
+        if (!check.is(":checked")) {
+            input.val("");
+            setTip(input, check.parent());
+            if (name == "userName") {
+                setText(input, null, "请填写用户名");
+            } else if (name == "pwd") {
+                setText(input, null, "请填写6-15位含有字母与数字密码");
+            } else if (name == "code") {
+                setText(input, null, "请填写验证码");
+            }
+        }
+    });
+    $(".afis .submit-content").on("click", "[name='submit']", function () {
+        var params = getParams();
+        if (!params) {
+            return;
+        }
+        var data = $(this).data();
+        params["appCode"] = data.appcode;
+        params["redirectUrl"] = data.redirecturl;
+        afismq.post("/auth/authorize", params, function (data) {
+            if (data) {
+                location.href = data;
+            }
+        }, function (msg, code, desc) {
+            if (tip) {
+                new tip().warning(desc + "[" + code + "]");
+            }
+        });
+    });
+    content.on("click", ".suffix.code img", function () {
+        $(this).attr("src", ("/captcha.png?time=" + new Date().getTime()));
+    });
+    // $(".afis .submit-content").find("[name='submit']").trigger("click");
+    function validate() {
+        var target = $(this),
+            name = target.attr("name"),
+            icon = target.parent(".content").siblings(".suffix").find(".icon"),
+            check = false,
+            val = $.trim(target.val());
+        if (name == "pwd") {
+            check = checkPwd(target);
+        } else if (name == "userName") {
+            check = val.length > 0;
+            setText(target, null, check ? "" : "请填写用户名");
+        } else if (name = "code") {
+            check = val.length > 0;
+            setText(target, null, check ? "" : "请填写验证码");
+        }
+        setTip(target, icon, check);
+    }
+    function getIcon(input) {
+        return input.parent(".content").siblings(".suffix").find(".icon");
+    }
+    function getParams() {
+        var data = {},
+            userName = content.find("input[name='userName']"),
+            pwd = content.find("input[name='pwd']"),
+            code = content.find("input[name='code']"),
+            check = true;
+        //用户名
+        data["username"] = $.trim(userName.val());
+        check = data["username"].length > 0;
+        setTip(userName, getIcon(userName), check);
+        setText(userName, null, check ? "" : "请填写用户名");
+        //密码
+        check = checkPwd(pwd);
+        setTip(pwd, getIcon(pwd), check);
+        data["password"] = $.trim(pwd.val());
+        //验证码
+        data["captcha"] = $.trim(code.val());
+        check = data["captcha"].length > 0;
+        setTip(code, getIcon(code), check);
+        setText(code, null, check ? "" : "请填写验证码");
+
+        if (!check) {
+            data = null;
+        }
+        return data;
+    }
+    function setText(input, infoTxt, errorTxt) {
+        var content = input.parents(".content-wapper");
+        var info = content.find(".content-item.info");
+        var error = content.find(".content-item.error");
+        if (infoTxt) {
+            info.show();
+            info.html(infoTxt);
+            error.hide();
+        } else {
+            info.hide();
+            error.show();
+            error.html(errorTxt);
+        }
+    }
+    function checkPwd(input) {
+        var str = $.trim(input.val());
+        if (str.length > 0) {
+            setText(input, null, "");
+            return true;
+        } else {
+            setText(input, null, "请填写密码");
+            return false;
+        }
+        //     reg1 = /([a-zA-Z0-9!@#$%^&*()_?<>{}]){6,15}/,
+        //     reg2 = /[a-zA-Z]+/,
+        //     reg3 = /[0-9]+/;
+        // if (reg1.test(str) && reg2.test(str) && reg3.test(str)) {
+        //     setText(input, null, "");
+        //     return true;
+        // } else if (!reg1.test(str)) {
+        //     setText(input, null, "请填写6-15位含有字母与数字密码");
+        //     return false;
+        // } else if (!reg2.test(str)) {
+        //     setText(input, null, "应含有字母");
+        //     return false;
+        // } else if (!reg3.test(str)) {
+        //     setText(input, null, "应含有数字");
+        //     return false;
+        // }
+    }
+    function setTip(input, icon, success, text) {
+        if (input.hasClass("success")) {
+            input.removeClass("success");
+        }
+        if (input.hasClass("error")) {
+            input.removeClass("error");
+        }
+        if (typeof success == 'boolean') {
+            icon.find("input[type='checkbox']").prop("checked", success);
+            if (success) {
+                input.addClass("success");
+            } else {
+                input.addClass("error");
+            }
+            icon.show();
+        } else {
+            icon.hide();
+        }
+    }
+</script>
+
+</html>

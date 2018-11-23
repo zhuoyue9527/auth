@@ -1,0 +1,9 @@
+/*/target/**
+/*/.project
+/*/.classpath
+/*/.settings/**
+/*/.springBeans
+
+.idea/*
+*/.idea/*
+*.iml

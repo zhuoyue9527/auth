@@ -1,0 +1,30 @@
+/*土司*/
+
+.toast-mid-center {
+    top: 35%;
+}
+
+#toast-container {
+    width: 100%;
+    left: 0px;
+}
+
+#toast-container>div {
+    margin-left: auto!important;
+    margin-right: auto!important;
+}
+
+[role="tooltip"].popover {
+    max-width: none;
+}
+
+/*弹框*/
+
+.popup.modal .modal-content {
+    display: inline-block;
+}
+
+.popup.modal .modal-header, .popup.modal .modal-body, .popup.modal .modal-footer {
+    float: left;
+    width: 100%;
+}

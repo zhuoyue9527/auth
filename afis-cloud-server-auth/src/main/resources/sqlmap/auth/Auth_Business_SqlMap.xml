@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE quoteSqlMap PUBLIC "-//SaCool.com//DTD Quote SQL Map 1.0//ZH" "http://ibatis.sacool.com/dtd/quote-sql-map-1.dtd">
+<quoteSqlMap>
+	<!-- 手工添加的 -->
+	<sqlMap resource="sqlmap/auth/UserManagements_SqlMap.xml" />
+	<sqlMap resource="sqlmap/auth/ApplicationManagements_SqlMap.xml" />
+	<sqlMap resource="sqlmap/auth/FunctionManagements_SqlMap.xml" />
+	<sqlMap resource="sqlmap/auth/AppFunctionManagements_SqlMap.xml" />
+	<sqlMap resource="sqlmap/auth/LogManagements_SqlMap.xml" />
+	<sqlMap resource="sqlmap/auth/LoginManagements_SqlMap.xml" />
+	<sqlMap resource="sqlmap/auth/AppUserManagements_SqlMap.xml" />
+	<sqlMap resource="sqlmap/auth/ConfigManagements_SqlMap.xml" />
+	<sqlMap resource="sqlmap/auth/OpenUserManagements_SqlMap.xml" />
+</quoteSqlMap>

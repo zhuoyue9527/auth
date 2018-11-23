@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap
+	namespace="com.afis.cloud.auth.business.store.UserManagements">
+
+	<resultMap id="getUsersMap"
+			   class="com.afis.cloud.auth.model.protocol.AdminUserResponse"
+			   extends="T_A_USER.sacoolbuildergenerated_BaseResultMap">
+		<result column="OPERATE_APP_NAME" property="operateAppName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="OPERATE_NAME" property="operateName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="REGISTE_APP_NAME" property="registeAppName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="REGISTE_OPERATE_NAME" property="registeOperateName"
+				jdbcType="VARCHAR2(60)" />
+	</resultMap>
+
+	<!-- 用户列表分页查询 -->
+	<sql id="getUsersQuery_where">
+		<isNotEmpty prepend=" AND " property="userName">U.user_name
+			like
+			'%' || #userName# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userAccount">U.user_account like
+			'%' || #userAccount# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status">U.STATUS=#status#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appId">U.REGISTER_APP_ID=#appId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="clientType">U.CLIENT_TYPE=#clientType#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDay"><![CDATA[to_char(U.REGISTER_TIME,'yyyy-MM-dd') >= #startDay#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDay"><![CDATA[to_char(U.REGISTER_TIME,'yyyy-MM-dd') <= #endDay#]]>
+		</isNotEmpty>
+	</sql>
+
+	<select id="getUsers"
+		resultMap="getUsersMap"
+		parameterClass="java.util.Map">
+		SELECT U.*,
+		U1.USER_NAME AS OPERATE_NAME,
+		U2.USER_NAME AS REGISTE_OPERATE_NAME,
+		A1.APP_NAME  AS REGISTE_APP_NAME,
+		A2.APP_NAME  AS OPERATE_APP_NAME
+		FROM T_A_USER U
+		LEFT JOIN T_A_USER U1 ON U.OPERATOR = U1.ID
+		LEFT JOIN T_A_USER U2 ON U.REGISTER_OPERATOR = U2.ID
+		LEFT JOIN T_A_APPLICATION A1 ON U.REGISTER_APP_ID = A1.ID
+		LEFT JOIN T_A_APPLICATION A2 ON U.OPERATE_APP_ID = A2.ID
+		WHERE 1 = 1
+		<include refid="getUsersQuery_where" />
+		ORDER BY U.ID DESC
+	</select>
+
+	<select id="getUsers_count" resultClass="java.lang.Integer">
+		SELECT COUNT(U.ID)
+		FROM T_A_USER U
+		LEFT JOIN T_A_USER U1 ON U.OPERATOR = U1.ID
+		LEFT JOIN T_A_USER U2 ON U.REGISTER_OPERATOR = U2.ID
+		LEFT JOIN T_A_APPLICATION A1 ON U.REGISTER_APP_ID = A1.ID
+		LEFT JOIN T_A_APPLICATION A2 ON U.OPERATE_APP_ID = A2.ID
+		WHERE 1 = 1
+		<include refid="getUsersQuery_where" />
+	</select>
+
+
+<!--根据ID查询-->
+	<resultMap id="getUsersByIdMap"
+			   class="com.afis.cloud.auth.model.protocol.AdminUserResponse"
+			   extends="T_A_USER.sacoolbuildergenerated_BaseResultMap">
+		<result column="OPERATE_APP_NAME" property="operateAppName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="OPERATE_NAME" property="operateName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="REGISTE_APP_NAME" property="registeAppName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="REGISTE_OPERATE_NAME" property="registeOperateName"
+				jdbcType="VARCHAR2(60)" />
+	</resultMap>
+	<select id="getUsersById"
+			resultMap="getUsersByIdMap"
+			parameterClass="java.lang.Long">
+		SELECT U.*,
+		U1.USER_NAME AS OPERATE_NAME,
+		U2.USER_NAME AS REGISTE_OPERATE_NAME,
+		A1.APP_NAME  AS REGISTE_APP_NAME,
+		A2.APP_NAME  AS OPERATE_APP_NAME
+		FROM T_A_USER U
+		LEFT JOIN T_A_USER U1 ON U.OPERATOR = U1.ID
+		LEFT JOIN T_A_USER U2 ON U.REGISTER_OPERATOR = U2.ID
+		LEFT JOIN T_A_APPLICATION A1 ON U.REGISTER_APP_ID = A1.ID
+		LEFT JOIN T_A_APPLICATION A2 ON U.OPERATE_APP_ID = A2.ID
+		WHERE U.ID=#value#
+	</select>
+</sqlMap>

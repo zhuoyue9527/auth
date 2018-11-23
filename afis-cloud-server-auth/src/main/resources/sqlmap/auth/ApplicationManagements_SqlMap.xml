@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap
+	namespace="com.afis.cloud.auth.business.store.ApplicationManagements">
+
+	<resultMap id="getApplicationsMap"
+		class="com.afis.cloud.auth.model.protocol.AdminApplicationResponse"
+		extends="T_A_APPLICATION.sacoolbuildergenerated_BaseResultMap">
+		<result column="OPERATE_APP_NAME" property="operateAppName"
+			jdbcType="VARCHAR2(60)" />
+		<result column="OPERATE_NAME" property="operateName"
+			jdbcType="VARCHAR2(60)" />
+	</resultMap>
+
+
+	<!-- 用户授权列表分页查询 -->
+	<sql id="getApplications_where">
+		<isNotEmpty prepend=" AND " property="appName">T.app_name
+			like '%' || #appName# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status">T.STATUS=#status#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="startDay"><![CDATA[to_char(T.OPERATE_TIME,'yyyy-MM-dd') >= #startDay#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="endDay"><![CDATA[to_char(T.OPERATE_TIME,'yyyy-MM-dd') <= #endDay#]]>
+		</isNotEmpty>
+	</sql>
+
+	<select id="getApplications" resultMap="getApplicationsMap"
+		parameterClass="java.util.Map">
+		SELECT T.*, T1.APP_NAME AS OPERATE_APP_NAME, U.USER_NAME AS OPERATE_NAME
+		FROM T_A_APPLICATION T
+		LEFT JOIN T_A_APPLICATION T1 ON T.OPERATE_APP_ID = T1.ID
+		LEFT JOIN T_A_USER U ON T.OPERATOR = U.ID
+		WHERE 1 = 1
+		<include refid="getApplications_where" />
+		ORDER BY T.OPERATE_TIME ,T.ID DESC
+	</select>
+
+	<select id="getApplications_count"
+		resultClass="java.lang.Integer">
+		SELECT COUNT(T.ID)
+		FROM T_A_APPLICATION T
+		LEFT JOIN T_A_APPLICATION T1 ON T.OPERATE_APP_ID = T1.ID
+		LEFT JOIN T_A_USER U ON T.OPERATOR = U.ID
+		WHERE 1 = 1
+		<include refid="getApplications_where" />
+	</select>
+
+
+	<resultMap id="getApplicationByParamMap"
+		class="com.afis.cloud.auth.model.protocol.AdminApplicationResponse"
+		extends="T_A_APPLICATION.sacoolbuildergenerated_BaseResultMap">
+		<result column="OPERATE_APP_NAME" property="operateAppName"
+			jdbcType="VARCHAR2(60)" />
+		<result column="OPERATE_NAME" property="operateName"
+			jdbcType="VARCHAR2(60)" />
+	</resultMap>
+	<sql id="getApplicationByParam_where">
+		<isNotEmpty prepend=" AND " property="appName">
+			T.app_name like '%' || #appName# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="limit">ROWNUM &lt;=#limit#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="status">T.STATUS =#status#
+		</isNotEmpty>
+	</sql>
+	<!-- 根据Id查询应用授权 -->
+	<select id="getApplicationByParam"
+		resultMap="getApplicationByParamMap" parameterClass="java.util.Map">
+		SELECT T.*, T1.APP_NAME AS OPERATE_APP_NAME, U.USER_NAME AS OPERATE_NAME
+		FROM T_A_APPLICATION T
+		LEFT JOIN T_A_APPLICATION T1 ON T.OPERATE_APP_ID = T1.ID
+		LEFT JOIN T_A_USER U ON T.OPERATOR = U.ID
+		WHERE 1 = 1
+		<include refid="getApplicationByParam_where" />
+		ORDER BY T.OPERATE_TIME ,T.ID DESC
+	</select>
+
+
+	<!--根据userId查询应用列表-->
+	<select id="getApplicationByUserId"
+			resultMap="T_A_APPLICATION.sacoolbuildergenerated_BaseResultMap" parameterClass="java.lang.Long">
+		SELECT * FROM T_A_APPLICATION A
+ 		WHERE A.ID IN (SELECT T.APP_ID FROM T_A_APP_USER T WHERE T.USER_ID = #id#)
+		ORDER BY A.OPERATE_TIME DESC
+	</select>
+
+</sqlMap>
+
+

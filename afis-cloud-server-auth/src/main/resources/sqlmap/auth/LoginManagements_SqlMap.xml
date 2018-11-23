@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap
+	namespace="com.afis.cloud.auth.business.store.LoginManagements">
+
+	<resultMap class="com.afis.cloud.auth.model.AppUserExt"
+		id="appUserExt"
+		extends="T_A_APP_USER.sacoolbuildergenerated_BaseResultMap">
+		<result column="APP_CODE" property="appCode"
+			jdbcType="VARCHAR2(32)" />
+	</resultMap>
+
+	<select id="getAppUserExtByUserId" resultMap="appUserExt"
+		parameterClass="long">
+		SELECT T.*,A.APP_CODE FROM T_A_APP_USER T
+		LEFT JOIN T_A_APPLICATION A ON T.APP_ID = A.ID
+		WHERE T.USER_ID = #userId#
+	</select>
+</sqlMap>

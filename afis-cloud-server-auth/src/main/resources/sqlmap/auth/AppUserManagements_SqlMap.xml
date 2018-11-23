@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="com.afis.cloud.auth.business.store.AppUserManagements">
+
+	<resultMap id="getAppUsersMap"
+			   class="com.afis.cloud.auth.model.protocol.AdminAppUserResponse"
+			   extends="T_A_APP_USER.sacoolbuildergenerated_BaseResultMap">
+		<result column="APP_NAME" property="appName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="USER_NAME" property="userName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="USER_ACCOUNT" property="userAccount"
+				jdbcType="VARCHAR2(60)" />
+		<result column="MOBILE" property="mobile"
+				jdbcType="VARCHAR2(60)" />
+		<result column="OPERATE_NAME" property="operateName"
+				jdbcType="VARCHAR2(60)" />
+		<result column="REMARK" property="remark"
+				jdbcType="VARCHAR2(200)" />
+	</resultMap>
+
+	<!-- 用户列表分页查询 -->
+	<sql id="getAppUsersQuery_where">
+		<isNotEmpty prepend=" AND " property="userName">U.USER_NAME
+			like '%' || #userName# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="userAccount">U.USER_ACCOUNT  like '%' || #userAccount# || '%' escape '\'
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="appId">AU.OPERATE_APP_ID=#appId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="warrant">AU.WARRANT=#warrant#
+		</isNotEmpty>
+	</sql>
+
+	<select id="getAppUsers" resultMap="getAppUsersMap"
+		parameterClass="java.util.Map">
+		SELECT AU.*, U.USER_ACCOUNT, U.USER_NAME, U.MOBILE, A.APP_NAME,U1.USER_NAME AS OPERATE_NAME,U.REMARK
+		FROM T_A_APP_USER AU
+		LEFT JOIN T_A_USER U ON AU.USER_ID = U.ID
+		LEFT JOIN T_A_USER U1 ON AU.OPERATOR = U1.ID
+		LEFT JOIN T_A_APPLICATION A ON AU.APP_ID = A.ID
+		WHERE 1 = 1
+		<include refid="getAppUsersQuery_where" />
+		ORDER BY AU.ID DESC
+	</select>
+	
+	<select id="getAppUsers_count" resultClass="java.lang.Integer">
+		SELECT COUNT(AU.ID)
+		FROM T_A_APP_USER AU
+		LEFT JOIN T_A_USER U ON AU.USER_ID = U.ID
+		LEFT JOIN T_A_USER U1 ON AU.OPERATOR = U1.ID
+		LEFT JOIN T_A_APPLICATION A ON AU.APP_ID = A.ID
+		WHERE 1 = 1
+		<include refid="getAppUsersQuery_where" />
+	</select>
+
+	<select id="getAppUserWarrant" resultMap="getAppUsersMap"
+			parameterClass="java.util.Map">
+		SELECT AU.*, U.USER_ACCOUNT, U.USER_NAME, U.MOBILE, A.APP_NAME,U1.USER_NAME AS OPERATE_NAME,U.REMARK
+		FROM T_A_APP_USER AU
+		LEFT JOIN T_A_USER U ON AU.USER_ID = U.ID
+		LEFT JOIN T_A_USER U1 ON AU.OPERATOR = U1.ID
+		LEFT JOIN T_A_APPLICATION A ON AU.APP_ID = A.ID
+		WHERE AU.WARRANT_PERMIT = 1
+		<include refid="getAppUsersQuery_where" />
+		ORDER BY AU.ID DESC
+	</select>
+
+	<select id="getAppUserWarrant_count" resultClass="java.lang.Integer">
+		SELECT COUNT(AU.ID)
+		FROM T_A_APP_USER AU
+		LEFT JOIN T_A_USER U ON AU.USER_ID = U.ID
+		LEFT JOIN T_A_USER U1 ON AU.OPERATOR = U1.ID
+		LEFT JOIN T_A_APPLICATION A ON AU.APP_ID = A.ID
+		WHERE AU.WARRANT_PERMIT = 1
+		<include refid="getAppUsersQuery_where" />
+	</select>
+
+
+
+	<select id="getUserApps" resultMap="T_A_APPLICATION.sacoolbuildergenerated_BaseResultMap"
+			parameterClass="java.lang.Long">
+		SELECT T.* FROM T_A_APPLICATION T
+		LEFT JOIN T_A_APP_USER A ON A.APP_ID = T.ID
+		WHERE A.USER_ID=#value#
+	</select>
+</sqlMap>
